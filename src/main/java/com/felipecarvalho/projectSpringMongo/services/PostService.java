@@ -1,0 +1,22 @@
+package com.felipecarvalho.projectSpringMongo.services;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.felipecarvalho.projectSpringMongo.domain.Post;
+import com.felipecarvalho.projectSpringMongo.repository.PostRepository;
+import com.felipecarvalho.projectSpringMongo.services.exception.ObjectNotFoundException;
+
+@Service
+public class PostService {
+
+	@Autowired
+	private PostRepository repo;
+
+	public Post findById(String id) {
+		Optional<Post> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+	}
+}
